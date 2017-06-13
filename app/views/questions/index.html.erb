@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<div style="float:right">
+  <% if user_signed_in? %>
+        <b><%= link_to 'New Question', new_question_path %></b>|
+       <b><%= link_to "Logout",destroy_user_session_path,:method => :delete %></b>
+       </div>
+  <%else%>
+       <b><%= link_to "Login to Write Questions",new_user_session_path,class: "btn btn-success"%></b>
+    
+
+ <%end%> 
+
+  <h1 style="color:#ccc;text-align:center"> Questions</h1>
+    <br>
+
+<div class="container">
+
+   <% @questions.each do |question| %>
+  
+  <div class="panel panel-primary">
+   
+      <div class="panel-heading">Question no.<%= question.id%></div>
+        <div class="panel-body">
+               <h3><%=link_to question.question_title ,question %></h3>
+                <div style="float:right">
+                 <%= link_to 'Edit', edit_question_path(question) %>
+                  <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %>
+                </div>
+        </div>
+          <div class="panel-footer">
+              Question by <%=question.user.try(:email)%>
+          </div>
+
+      </div><br>
+   <% end %>
+  </div>
+  
+
+
+
+</div>
